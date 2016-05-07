@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ImageShelve</string>
+    <string name="title_activity_smily_tab">SmilyTabActivity</string>
+
+    <string name="fragment_title_happy">Happy</string>
+    <string name="fragment_title_emtional">Emotional</string>
+    <string name="fragment_title_angry">Angry</string>
+</resources>
