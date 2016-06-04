@@ -3,6 +3,8 @@ package com.f9.imagetagging.activites.imageshelve.activites;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.f9.imagetagging.activites.imageshelve.R;
+
 public class HomeActivity extends AppCompatActivity {
 
     @Override

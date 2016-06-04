@@ -22,6 +22,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.f9.imagetagging.activites.imageshelve.R;
+import com.f9.imagetagging.activites.imageshelve.data.ImageData;
+import com.f9.imagetagging.activites.imageshelve.database.DatabaseHandler;
+import com.f9.imagetagging.activites.imageshelve.database.DbConstants;
+
+import java.util.ArrayList;
 
 public class GallaryViewActivity extends AppCompatActivity implements View.OnClickListener{
     private int count;
@@ -34,6 +39,7 @@ public class GallaryViewActivity extends AppCompatActivity implements View.OnCli
     private Button btnSmilyTab;
     private Button btnSelectImages;
     private Handler handler = new Handler();
+    private DatabaseHandler databaseHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +55,22 @@ public class GallaryViewActivity extends AppCompatActivity implements View.OnCli
         btnSelectImages.setOnClickListener(this);
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
+
+
+        databaseHandler = new DatabaseHandler(this);
+
+
+
+        Button btnListImages = (Button) findViewById(R.id.btnListImages);
+
+        btnListImages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // list the stored images list
+                ArrayList<ImageData> list = (ArrayList) databaseHandler.getAllImageList();
+
+            }
+        });
 
     }
 
@@ -128,7 +150,7 @@ public class GallaryViewActivity extends AppCompatActivity implements View.OnCli
                         for (int i = 0; i < len; i++) {
                             if (thumbnailsselection[i]) {
                                 cnt++;
-                                selectImages = selectImages + arrPath[i] + "|";
+                                selectImages = selectImages + arrPath[i];
                             }
                         }
                         if (cnt == 0) {
@@ -140,6 +162,8 @@ public class GallaryViewActivity extends AppCompatActivity implements View.OnCli
                                     "You've selected Total " + cnt + " image(s).",
                                     Toast.LENGTH_LONG).show();
                             Log.d("SelectedImages", selectImages);
+                            databaseHandler.addImageData(new ImageData(selectImages, DbConstants.SMILEY_TYPE_HAPPY));
+
                         }
                     }
                 });
